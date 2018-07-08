@@ -4,7 +4,7 @@ quizaccess_kill
 This is a quiz access rule for Moodle Quiz that adds an instant kill
 option to the Immediate feedback behaviour.
 
-Copy this directory to quiz/accessrule/changebehaviour in Moodle
+Copy this directory to quiz/accessrule/kill in the Moodle source
 directory. Login as admin to complete plugin installation.  Then set
 up a quiz using immediate feedback and enable the Qick kill setting
 underneath the behaviour setting. When students attempt the quiz and
