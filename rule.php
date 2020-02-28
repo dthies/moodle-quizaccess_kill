@@ -55,13 +55,13 @@ class quizaccess_kill extends quiz_access_rule_base {
 
         $quba = question_engine::load_questions_usage_by_activity($attempt->uniqueid);
         if (empty($quba->get_slots())) {
-           return false;
+            return false;
         }
 
         foreach ($quba->get_slots() as $slot) {
             if ($quba->get_question_state($slot)->is_incorrect() ||
                     $quba->get_question_state($slot)->is_partially_correct()) {
-                return $attempt->timestart ;
+                return $attempt->timestart;
             }
         }
         return false;

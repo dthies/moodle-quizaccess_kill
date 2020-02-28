@@ -22,10 +22,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/mod/quiz/backup/moodle2/backup_mod_quiz_access_subplugin.class.php');
-
-defined('MOODLE_INTERNAL') || die();
 
 
 /**
@@ -44,7 +43,7 @@ class backup_quizaccess_kill_subplugin extends backup_mod_quiz_access_subplugin 
         $subplugin = $this->get_subplugin_element();
         $subpluginwrapper = new backup_nested_element($this->get_recommended_name());
         $subplugintablesettings = new backup_nested_element('quizaccess_kill',
-                null, array('kill',));
+                null, array('kill'));
 
         // Connect XML elements into the tree.
         $subplugin->add_child($subpluginwrapper);
