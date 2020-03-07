@@ -24,8 +24,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Quick kill';
-$string['kill'] = 'Quick kill';
+$string['pluginname'] = 'Instant kill';
+$string['kill'] = 'Instant kill';
+$string['killheader'] = 'Question Time Limit';
+$string['killtime'] = 'Starting this attempt begins a timer. You will
+have {$a} per question attempted before the quiz automatically ends. If
+you do not click the "Check" button before the time expires or answer
+incorreclty, your attempt is finished.';
 $string['kill_help'] = 'Stop the attempt immediately if a question is graded incorrect when using the imediate feedback behaviour';
 $string['notice'] = 'Quiz will close if you make a mistake';
-$string['privacy:metadata'] = 'The Quick kill quiz access rule plugin does not store any personal data.';
+$string['privacy:metadata'] = 'The Instant kill quiz access rule plugin does not store any personal data.';

@@ -58,11 +58,19 @@ class quizaccess_kill extends quiz_access_rule_base {
             return false;
         }
 
+        $questionnumber = 1;
         foreach ($quba->get_slots() as $slot) {
             if ($quba->get_question_state($slot)->is_incorrect() ||
                     $quba->get_question_state($slot)->is_partially_correct()) {
                 return $attempt->timestart;
             }
+            if ($quba->get_question_state($slot)->is_finished()) {
+                $questionnumber++;
+            }
+
+        }
+        if (!empty($this->quiz->timelimit)) {
+            return $attempt->timestart + $this->quiz->timelimit * $questionnumber / count($quba->get_slots());
         }
         return false;
     }
@@ -99,5 +107,27 @@ class quizaccess_kill extends quiz_access_rule_base {
             'COALESCE(kill, 0) AS kill', // Using COALESCE to replace NULL with 0.
             'LEFT JOIN {quizaccess_kill} qa_k ON qa_k.quizid = quiz.id',
             array());
+    }
+
+    public function get_superceded_rules() {
+        return array('timelimit');
+    }
+
+    public function is_preflight_check_required($attemptid) {
+        // Warning only required if the attempt is not already started.
+        return $attemptid === null && $this->quiz->timelimit;
+    }
+
+    public function add_preflight_check_form_fields(mod_quiz_preflight_check_form $quizform,
+            MoodleQuickForm $mform, $attemptid) {
+        $mform->addElement('header', 'killheader',
+                get_string('killheader', 'quizaccess_kill'));
+        $this->quizobj->preload_questions();
+        $this->quizobj->load_questions();
+        $mform->addElement('static', 'killtime', '',
+            get_string('killtime', 'quizaccess_kill',
+                format_time($this->quiz->timelimit / count($this->quizobj->get_questions()))
+            )
+        );
     }
 }
